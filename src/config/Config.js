@@ -1,11 +1,15 @@
 export default class Config {
-   static SHYFT_API_TOKEN = "FvtQ-DsN9H3YDIYw";
    static SHYFT = "https://api.shyft.to/sol/v1";
    static NETWORK = "devnet";
    static CONNECTION = "https://api.devnet.solana.com";
+   
+   //PRIVKEY
+   static SHYFT_API_TOKEN = "FvtQ-DsN9H3YDIYw";
+   static LAVENES_PRIV_KEY = "4XMJ5M6wopsvVmBMC8jpShcVETUAAbF2aVKy4ZtqxXDmHUgDcywGhy817vVN2dwJqU6crhWpsoHVtcFAAPRtkGNc"
 
    //STORAGE KEYS
    static SK_PUBLIC_KEY = "@publicKey";
+   static SK_MISSION_CLAIMED = "@missionClaimed";
 
    //TOKENS
    static TOKEN_STONE = "H5hTi6JJdDHy4Vhn5U4hdgNF3dsUNLzZcayDj2rnLWk6";

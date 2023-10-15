@@ -3,9 +3,12 @@ import MissionApi from "../../api/MissionApi";
 import "./styles.scss";
 import Config from "../../config/Config";
 import { Button } from "../Button";
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 export const Mission = ({ walletData }) => {
    const [missions, setMissions] = useState([]);
+   const [claming, setClaming] = useState(false);
 
    useEffect(() => {
       console.log(walletData);
@@ -68,8 +71,13 @@ export const Mission = ({ walletData }) => {
       setMissions(missions);
    }
 
-   const claimReward = async () => {
+   const claimReward = async (reward) => {
+      setClaming(true);
+      await MissionApi.claimReward(reward);
+      await fetchMission();
 
+      toast("🚀 Your reward has been transferred to your wallet!");
+      setClaming(false);
    }
 
    return (
@@ -85,12 +93,16 @@ export const Mission = ({ walletData }) => {
                      progress={item.progress}
                      onClaim={
                         item.progress === 100 ? () => {
-                           
+                           claimReward({
+                              ...item.reward,
+                              id: item.id
+                           });
                         } : null
                      }
                      rewardImage={item.reward.image}
                      rewardName={item.reward.name}
                      rewardAmount={item.reward.amount}
+                     loading={claming}
                   />
                })
             }
@@ -99,7 +111,7 @@ export const Mission = ({ walletData }) => {
    )
 }
 
-export const MissionCard = ({ title, progress=0, onClaim, rewardImage, rewardName, rewardAmount }) => {
+export const MissionCard = ({ title, progress=0, onClaim, rewardImage, rewardName, rewardAmount, loading }) => {
    return (
       <div className="mission-card">
          <div className="mission-card__reward">
@@ -121,7 +133,7 @@ export const MissionCard = ({ title, progress=0, onClaim, rewardImage, rewardNam
          </div>
 
          <div className="mission-card__action">
-            <Button disabled={!onClaim} onClick={onClaim}>CLAIM</Button>
+            <Button disabled={!onClaim} onClick={onClaim} loading={loading}>CLAIM</Button>
          </div>
       </div>
    )

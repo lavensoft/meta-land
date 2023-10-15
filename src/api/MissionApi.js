@@ -1,15 +1,16 @@
 import Config from "../config/Config";
 import TokenApi from "./TokenApi";
-import WalletApi from "./WalletApi";
 
 export default class MissionApi {
    static getMissions() {
+      const claimedList = this.getClaimed();
+
       return [
          {
             id: 0,
             reward: {
                type: "TOKEN",
-               address: Config.TOKEN_STONE,
+               tokenAddress: Config.TOKEN_STONE,
                image: window.location.origin + "/assets/stone.png",
                name: "Stone",
                amount: 1
@@ -22,7 +23,7 @@ export default class MissionApi {
             id: 1,
             reward: {
                type: "TOKEN",
-               address: Config.TOKEN_GOLD,
+               tokenAddress: Config.TOKEN_GOLD,
                image: window.location.origin + "/assets/gold.png",
                name: "Gold",
                amount: 1
@@ -35,7 +36,7 @@ export default class MissionApi {
             id: 3,
             reward: {
                type: "TOKEN",
-               address: Config.TOKEN_DIAMOND,
+               tokenAddress: Config.TOKEN_DIAMOND,
                image: window.location.origin + "/assets/diamond.png",
                name: "Diamond",
                amount: 1
@@ -44,18 +45,44 @@ export default class MissionApi {
             type: "HOLD_SOL",
             amount: 6
          }
-      ]
+      ].filter(i => !claimedList.includes(i.id));
+   }
+
+   static getClaimed() {
+      return JSON.parse(localStorage.getItem(Config.SK_MISSION_CLAIMED)) || [];
+   }
+
+   static setClaimed(rewardId="") {
+      let claimedList = this.getClaimed();
+
+      claimedList.push(rewardId);
+
+      return localStorage.setItem(Config.SK_MISSION_CLAIMED, JSON.stringify(claimedList));
    }
 
    static async claimReward (reward={
       address: "",
-      amount: 0
+      amount: 0,
+      tokenAddress: "",
+      id: ""
    }) {
-      let encodedTransaction = await TokenApi.mintDetach({ 
-         amount: reward.amount,
-         message: "You have been awarded these tokens for being awesome!"
+      //MINT DETACT
+      // let encodedTransaction = await TokenApi.mintDetach({ 
+      //    amount: reward.amount,
+      //    message: "You have been awarded these tokens for being awesome!",
+      //    tokenAddress: reward.tokenAddress
+      // });
+
+      // console.log(encodedTransaction);
+
+      // await WalletApi.signTransaction(encodedTransaction);
+
+      await TokenApi.airdrop({
+         tokenAddress: reward.tokenAddress,
+         amount: reward.amount
       });
 
-      await WalletApi.signTransaction(encodedTransaction);
+      this.setClaimed(reward.id);
+      return;
    }
 }

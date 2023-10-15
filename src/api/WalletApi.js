@@ -612,8 +612,12 @@ export default class WalletApi {
       const toTransaction = (encodedTransaction) => window.solanaWeb3.Transaction.from(Uint8Array.from(atob(encodedTransaction), c => c.charCodeAt(0)))
       const transaction = toTransaction(encodedTransaction);
 
+      console.log(transaction);
+
       const signedTransaction = await window.phantom.solana.signTransaction(transaction);
+      console.log("SIGN");
       const connection = new window.solanaWeb3.Connection(Config.CONNECTION);
+      console.log("SEND RAW");
       await connection.sendRawTransaction(signedTransaction.serialize());
 
       console.log("TRANSACTION CONFIRMED!!!");

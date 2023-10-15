@@ -14,9 +14,38 @@
    justify-content: center;
    background-color: #F6F3ED;
    min-height: 48px;
-   padding: 8px 8px 8px 16px;
+   padding: 9px;
    border-radius: 15px;
    gap: 15px;
+   margin-bottom: 15px;
+   user-select: none;
+
+   &__reward {
+      background: white;
+      padding: 6px 9px;
+      border-radius: 9px;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, .09);
+      cursor: pointer;
+
+      &__image {
+         height: 48px;
+      }
+
+      &__amount {
+         display: block;
+         font-size: 11px;
+         color: rgba(0, 0, 0, .6);
+         font-weight: 600;
+      }
+
+      &__name {
+         display: block;
+         font-size: 12px;
+         color: rgba(0, 0, 0, 1);
+         font-weight: 600;
+         margin-top: 2px;
+      }
+   }
 
    &__info {
       flex: 1;
@@ -46,19 +75,5 @@
    }
 
    &__action {
-      &__button {
-         color: white;
-         background: #8080FF;
-         border-radius: 9px;
-         padding: 9px 15px;
-         border: none;
-         cursor: pointer;
-         font-weight: 500;
-         transition: all .15s ease;
-
-         &:active {
-            opacity: .6;
-         }
-      }
    }
 }
