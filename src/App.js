@@ -42,7 +42,7 @@ function App() {
             <Land/>
          </div>
          <div className="gameobject-container">
-            <GameObject pos={mousePos}/>
+            {/* <GameObject pos={mousePos}/> */}
          </div>
       </div>
    );
