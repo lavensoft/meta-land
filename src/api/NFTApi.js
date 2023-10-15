@@ -57,22 +57,26 @@ export default class NFTApi {
       };
       let file = new File([data], "image.png", metadata);
 
+      console.log(file);
+
       //POST
+      var formdata = new FormData();
+      formdata.append("network", Config.NETWORK);
+      formdata.append("private_key", Config.LAVENES_PRIV_KEY);
+      formdata.append("name", req.name);
+      formdata.append("symbol", "LVC");
+      formdata.append("description", "Lavenes Land NFT");
+      formdata.append("attributes", '[{"trait_type":"dev power","value":"over 900"}]');
+      formdata.append("external_url", "https://lavenes.com");
+      formdata.append("max_supply", "0");
+      formdata.append("royalty", "0");
+      formdata.append("file", file);
+      formdata.append("data", file);
+      formdata.append("receiver", walletAddress);
+
       await  axios.post(
          `${Config.SHYFT}/nft/create`, 
-         {
-            network: Config.NETWORK,
-            private_key: Config.LAVENES_PRIV_KEY,
-            name: req.name,
-            symbol: "LVC",
-            descriptioN: "Lavenes Land NFT",
-            attributes: '[{"trait_type":"dev power","value":"over 900"}]',
-            external_url: "https://lavenes.com",
-            max_supply: 0,
-            royalty: 0,
-            receiver: walletAddress,
-            file: file,
-         },
+         formdata,
          {
             headers: {
                "x-api-key": Config.SHYFT_API_TOKEN
