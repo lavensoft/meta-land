@@ -1,11 +1,18 @@
 import { useEffect, useState } from "react";
 import "./styles.scss";
 
-export const GameObject = ({ pos=[0, 0] }) => {
+const GRID_SIZE = 96;
+
+export const GameObject = ({ pos=[0, 0], onClick }) => {
    const [objectPos, setObjectPos] = useState([0, 0]);
 
    //Update pos
    useEffect(() => {
+      let gridPos = pos;
+
+      // gridPos[0] = Math.floor(gridPos[0] / GRID_SIZE) * GRID_SIZE;
+      // gridPos[1] = Math.floor(gridPos[1] / GRID_SIZE) * GRID_SIZE;
+
       setObjectPos(pos);
    }, [pos])
 

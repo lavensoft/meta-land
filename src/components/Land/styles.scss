@@ -1,13 +1,12 @@
 .land {
-   width: 100%;
+   width: 900px;
    height: 100%;
    display: flex;
    align-items: center;
    justify-content: center;
 
    &__container {
-      width: 900px;
-      max-width: 900px;
+      width: 100%;
       background: url("../../assets/land1.png") no-repeat center center / contain;
    
       &::after {
