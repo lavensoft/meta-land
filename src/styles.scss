@@ -1,0 +1,96 @@
+.App {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   height: 100vh;
+   background: url("/assets/background.png") no-repeat center center / cover;
+
+   & .inventory {
+      margin-inline: 24px;
+      width: 480px;
+      height: 720px;
+      padding: 24px;
+      background-color: #fbf9f5;
+      border-radius: 24px;
+      box-sizing: border-box;
+      border: 1px solid #D0CCC3;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+
+      &__head {
+         width: 100%;
+         padding-bottom: 12px;
+
+         &__title {
+            font-size: 27px;
+            margin: 0;
+            text-align: center;
+         }
+      }
+
+      &__children {
+         display: flex;
+         gap: 16px;
+
+         &__sidebar {
+            width: 42px;
+
+            &__item {
+               width: 42px;
+               height: 42px;
+               border-radius: 9px;
+               border-color: rgba(0, 0, 0, .3);
+               background-color: white;
+               outline: none;
+               cursor: pointer;
+               box-sizing: border-box;
+               border-style: solid;
+               margin-bottom: 9px;
+
+               &--active {
+                  width: 42px;
+                  height: 42px;
+                  border-radius: 9px;
+                  border-color: rgba(0, 0, 0, 1);
+                  background-color: white;
+                  outline: none;
+                  cursor: pointer;
+                  box-sizing: border-box;
+                  border-style: solid;
+                  margin-bottom: 9px;
+               }
+            }
+         }
+
+         &__content {
+            width: 100%;
+            max-height: 624px;
+            overflow: auto;
+            display: grid;
+            gap: 8px;
+            grid-template-columns: repeat(2, minmax(0px, 1fr));
+            padding-bottom: 24px;
+         }
+      }
+   }
+
+   & .land {
+      flex: 1;
+   }
+}
+
+::-webkit-scrollbar {
+   background-color: transparent;
+   width: 10px;
+}
+* {
+   scrollbar-width: thin;
+   scrollbar-color: var(--dark-blue) var(--custom-white);
+}
+*::-webkit-scrollbar-track {
+   background-color: var(--custom-white);
+}
+*::-webkit-scrollbar-thumb {
+   background-color: var(--dark-blue) ;
+   border-radius: 20px;
+   border: 3px solid var(--custom-white);
+}
