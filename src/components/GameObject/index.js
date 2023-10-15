@@ -1,6 +1,14 @@
+import { useEffect, useState } from "react";
 import "./styles.scss";
 
 export const GameObject = ({ pos=[0, 0] }) => {
+   const [objectPos, setObjectPos] = useState([0, 0]);
+
+   //Update pos
+   useEffect(() => {
+      setObjectPos(pos);
+   }, [pos])
+
    return (
       <div className="gameobject" style={{
          left: `${pos[0] - 48}px`,

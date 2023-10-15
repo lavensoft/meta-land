@@ -1,6 +1,6 @@
 .gameobject {
-   width: 96px;
-   height: 120px;
+   width: 96px * 1.32;
+   height: 120px * 1.32;
    position: absolute;
 
    &__container {
@@ -13,8 +13,8 @@
       }
       
       &__build-overlay {
-         width: 48px;
-         height: 48px;
+         width: 48px * 1.32;
+         height: 48px * 1.32;
          background-color: #00966891;
          border: 3px solid #09805bc7;
          transform: rotateX(60deg) rotateZ(45deg);
