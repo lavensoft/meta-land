@@ -1,11 +1,26 @@
+import { useEffect, useState } from "react";
 import { Card } from "./components/Card";
 import { Land } from "./components/Land";
 import "./styles.scss";
+import { GameObject } from "./components/GameObject";
 
 function App() {
+   const [inventoryVisible, setInventoryVisible] = useState(true);
+   const [mousePos, setMousPos] = useState([0, 0]);
+
+   useEffect(() => {
+      document.onmousemove = handleMouseMove;
+   }, []);
+
+   const handleMouseMove = (e) => {
+      setMousPos([e.clientX, e.clientY]);
+   }
+
    return (
       <div className="App">
-         <div className="inventory">
+         <div className="inventory" style={{
+            visibility: inventoryVisible ? "visible" : "hidden"
+         }}>
             <div className="inventory__head">
                <h3 className="inventory__head__title">LAND</h3>
             </div>
@@ -15,7 +30,7 @@ function App() {
                   <button className="inventory__children__sidebar__item">L</button>
                </div>
                <div className="inventory__children__content">
-                  <Card/>
+                  <Card onClick={() => setInventoryVisible(false)}/>
                   <Card/>
                   <Card/>
                   <Card/>
@@ -25,6 +40,9 @@ function App() {
          </div>
          <div className="land-container">
             <Land/>
+         </div>
+         <div className="gameobject-container">
+            <GameObject pos={mousePos}/>
          </div>
       </div>
    );
