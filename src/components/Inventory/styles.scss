@@ -1,0 +1,9 @@
+.inventory-container {
+   overflow: auto;
+   display: grid;
+   gap: 8px;
+   grid-template-columns: repeat(2, minmax(0px, 1fr));
+   padding-bottom: 24px;
+   height: 100%;
+   width: 100%;
+}
