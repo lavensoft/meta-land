@@ -1,6 +1,11 @@
 .craft {
    overflow: auto;
 
+   &__mat {
+      display: flex;
+      gap: 8px;
+   }
+
    &__title {
 
    }

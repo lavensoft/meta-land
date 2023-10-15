@@ -1,6 +1,9 @@
 import axios from "axios";
 import Config from "../config/Config";
+import { Network, ShyftSdk } from "@shyft-to/js";
+import WalletApi from "./WalletApi";
 
+const shyft = new ShyftSdk({ apiKey: Config.SHYFT_API_TOKEN, network: Network.Devnet });
 export default class TokenApi {
    static async mintDetach(req = {
       amount: 0,
@@ -49,5 +52,21 @@ export default class TokenApi {
             }
          }
       );
+   }
+
+   static async burn({ tokenAddress, amount }) {
+      const walletAddress = localStorage.getItem(Config.SK_PUBLIC_KEY);
+
+      let resp = await shyft.token.burn({
+         network: Network.Devnet,
+         wallet: walletAddress,
+         tokenAddress,
+         amount,
+         feePayer: walletAddress
+      });
+
+      console.log(resp);
+
+      await WalletApi.signTransaction(resp.encoded_transaction);
    }
 }
