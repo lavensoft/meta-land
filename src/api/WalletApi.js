@@ -47,6 +47,9 @@ export default class WalletApi {
       let balance = await this.getBalance();
       let transactionHistory = await this.getTransactionHistory();
 
-      console.log(transactionHistory);
+      return {
+         balance,
+         transactionHistory
+      }
    }
 }
