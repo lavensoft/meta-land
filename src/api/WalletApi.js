@@ -1,5 +1,8 @@
 import axios from "axios";
 import Config from "../config/Config";
+import { Network, ShyftSdk } from "@shyft-to/js";
+
+const shyft = new ShyftSdk({ apiKey: Config.SHYFT_API_TOKEN, network: Network.Devnet });
 
 export default class WalletApi {
    static async connect() {
@@ -57,15 +60,38 @@ export default class WalletApi {
       return res.data?.result || [];
    }
 
+   static async getAllNFT() {
+      const walletAddress = localStorage.getItem(Config.SK_PUBLIC_KEY);
+      let res = await axios.get(
+         `https://api.shyft.to/sol/v2/nft/read_all?network=${Config.NETWORK}&address=${walletAddress}&update_authority=${Config.ADDRESS_LAVENES}&page=1&size=50`, 
+         {
+            headers: {
+               "x-api-key": Config.SHYFT_API_TOKEN
+            }
+         }
+      );
+
+      let list = res.data?.result?.nfts || [];
+
+      list = list.filter((item) => item.creators[0].address === Config.ADDRESS_LAVENES);
+
+      return list;
+   }
+
    static async getWallet() {
       let balance = await this.getBalance();
+      await new Promise((res) => setTimeout(res, 500));
       let transactionHistory = await this.getTransactionHistory();
+      await new Promise((res) => setTimeout(res, 500));
       let tokens = await this.getAllTokens();
+      await new Promise((res) => setTimeout(res, 500));
+      let nfts = await this.getAllNFT();
 
       return {
          balance,
          transactionHistory,
-         tokens
+         tokens,
+         nfts
       }
    }
 

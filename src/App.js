@@ -13,7 +13,7 @@ function App() {
    const [inventoryVisible, setInventoryVisible] = useState(true);
    const [mousePos, setMousPos] = useState([0, 0]);
    const [walletConnected, setWalletConnected] = useState(false);
-   const [tab, setTab] = useState(2);
+   const [tab, setTab] = useState(0);
    const [walletData, setWalletData] = useState({});
 
    //INIT
@@ -68,7 +68,7 @@ function App() {
                {
                   walletConnected ?
                   <div className="inventory__children__content">
-                     { tab === 0 && <Inventory onItemSelect={() => setInventoryVisible(false)}/> }
+                     { tab === 0 && <Inventory walletData={walletData} onItemSelect={() => setInventoryVisible(false)}/> }
                      { tab === 1 && <Mission walletData={walletData}/> }
                      { tab === 2 && <Craft walletData={walletData}/> }
                   </div> :
