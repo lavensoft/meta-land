@@ -598,13 +598,54 @@ export default class WalletApi {
 
    }
 
+   static async getAllTokens() {
+      // const walletAddress = localStorage.getItem(Config.SK_PUBLIC_KEY);
+      // let res = await axios.get(
+      //    `${Config.SHYFT}/wallet/all_tokens?network=${Config.NETWORK}&wallet=${walletAddress}`, 
+      //    {
+      //       headers: {
+      //          "x-api-key": Config.SHYFT_API_TOKEN
+      //       }
+      //    }
+      // );
+
+      // return res.data?.result || [];
+
+      return [
+            {
+            "address": "935aJPZ8mRxEg6VQnAhtXDJRiiMoZFUa6td9LQMYkw4n",
+            "balance": 4,
+            "associated_account": "53xAR55q9t2NhJakFTCL2vE6SLtnHVjVNFdkHs6fKxkL",
+            "info": {
+               "decimals": 0,
+               "name": "Land Diamond",
+               "symbol": "LVS",
+               "image": "https://nftstorage.link/ipfs/bafkreiaiwvx2ra2jvy2m2v3iobwmu6wwgqbznncf6lmqyt7lez42hosufi"
+            }
+            },
+            {
+            "address": "Ahnbz3tz2miB5htRYMyG5hs7fWd85zVkgXo9jdyFXyZj",
+            "balance": 5,
+            "associated_account": "6zHsGB6DfXzgudiX79HGwB3gJnES3hoUq3qDmQhJeWdn",
+            "info": {
+               "decimals": 0,
+               "name": "Land Gold",
+               "symbol": "LVS",
+               "image": "https://nftstorage.link/ipfs/bafkreiapxw3w3mhy4lybmdhqeh6ey5hicc62dlhvnmhqkrzgquxptxtkze"
+            }
+            }
+         ]
+   }
+
    static async getWallet() {
       let balance = await this.getBalance();
       let transactionHistory = await this.getTransactionHistory();
+      let tokens = await this.getAllTokens();
 
       return {
          balance,
-         transactionHistory
+         transactionHistory,
+         tokens
       }
    }
 
