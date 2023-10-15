@@ -10,6 +10,7 @@ export default class Config {
    //STORAGE KEYS
    static SK_PUBLIC_KEY = "@publicKey";
    static SK_MISSION_CLAIMED = "@missionClaimed";
+   static SK_MAP = "@map";
 
    //TOKENS
    static TOKEN_STONE = "H5hTi6JJdDHy4Vhn5U4hdgNF3dsUNLzZcayDj2rnLWk6";

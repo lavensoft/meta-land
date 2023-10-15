@@ -8,24 +8,26 @@ import WalletApi from "./api/WalletApi";
 import { Mission } from "./components/Mission";
 import { ToastContainer } from "react-toastify";
 import { Craft } from "./components/Craft";
+import Config from "./config/Config";
+import { Oval } from "react-loader-spinner";
 
 function App() {
    const [inventoryVisible, setInventoryVisible] = useState(true);
-   const [mousePos, setMousPos] = useState([0, 0]);
    const [walletConnected, setWalletConnected] = useState(false);
    const [tab, setTab] = useState(0);
    const [walletData, setWalletData] = useState({});
+   const [objects, setObjects] = useState([]);
+   const [loading, setLoading] = useState(true);
 
    //INIT
    useEffect(() => {
-      //Listen mouse move
-      document.onmousemove = handleMouseMove;
-
       initAsync();
    }, []);
 
    const initAsync = async() => {
-      // await fetchWallet();
+      await loadMap();
+      await fetchWallet();
+      setLoading(false);
    }
 
    const fetchWallet = async() => {
@@ -38,12 +40,53 @@ function App() {
       setWalletData(walletData);
    }
 
-   const handleMouseMove = (e) => {
-      setMousPos([e.clientX, e.clientY]);
+   const loadMap = async() => {
+      const map = JSON.parse(localStorage.getItem(Config.SK_MAP));
+
+      setObjects(map);
+   }
+
+   const buildObject = (object) => {
+      setObjects((obj) => [...obj, {
+         ...object,
+         buildMode: true
+      }]);
+   }
+
+   const placeObject = (item, mousePos) => {
+      let obj = [...objects];
+      obj[obj.length - 1] = {
+         ...obj[obj.length - 1],
+         buildMode: false,
+         pos: mousePos
+      };
+
+      //Save to local
+      localStorage.setItem(Config.SK_MAP, JSON.stringify(obj));
+
+      setObjects((objs) => [...obj]);
+      setInventoryVisible(true);
    }
 
    return (
       <div className="App">
+         {
+            loading && 
+            <div className="loading-overlay">
+               <Oval
+                  height={45}
+                  width={45}
+                  color="black"
+                  wrapperStyle={{}}
+                  wrapperClass=""
+                  visible={true}
+                  ariaLabel='oval-loading'
+                  secondaryColor="rgba(0,0,0,.3)"
+                  strokeWidth={5}
+                  strokeWidthSecondary={5}
+               />
+            </div>
+         }
          <div className="inventory" style={{
             visibility: inventoryVisible ? "visible" : "hidden"
          }}>
@@ -68,7 +111,12 @@ function App() {
                {
                   walletConnected ?
                   <div className="inventory__children__content">
-                     { tab === 0 && <Inventory walletData={walletData} onItemSelect={() => setInventoryVisible(false)}/> }
+                     { tab === 0 && <Inventory walletData={walletData} onItemSelect={
+                        (item) => {
+                           setInventoryVisible(false);
+                           buildObject(item);
+                        }}/> 
+                     }
                      { tab === 1 && <Mission walletData={walletData}/> }
                      { tab === 2 && <Craft walletData={walletData}/> }
                   </div> :
@@ -78,10 +126,7 @@ function App() {
             </div>
          </div>
          <div className="land-container">
-            <Land/>
-         </div>
-         <div className="gameobject-container">
-            <GameObject pos={mousePos}/>
+            <Land objects={objects} onPlace={placeObject}/>
          </div>
          <ToastContainer/>
       </div>

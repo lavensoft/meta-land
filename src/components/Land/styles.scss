@@ -8,6 +8,7 @@
    &__container {
       width: 100%;
       background: url("../../assets/land1.png") no-repeat center center / contain;
+      position: relative;
    
       &::after {
          content: "";

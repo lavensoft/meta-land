@@ -3,7 +3,7 @@ import "./styles.scss";
 
 const GRID_SIZE = 100;
 
-export const GameObject = ({ pos = [0, 0], onClick }) => {
+export const GameObject = ({ pos = [0, 0], onClick, image, buildMode }) => {
    const [objectPos, setObjectPos] = useState([0, 0]);
 
    //Update pos
@@ -46,20 +46,20 @@ export const GameObject = ({ pos = [0, 0], onClick }) => {
    return (
       <div className="gameobject"
          style={{
-            left: `${objectPos[0] - 48}px`,
+            left: `${objectPos[0] - 64}px`,
             top: `${objectPos[1] - 120}px`
          }}
          onClick={onClick}
       >
          <div className="gameobject__container">
             <img className="gameobject__container__image"
-               src="https://www.arweave.net/e1sVHzTkGvSTvkDxsyF9PBjbYOJQvhli9E4tduDOR4Y?ext=png"
+               src={image}
                alt="img"
             />
 
-            <div className="gameobject__container__build-overlay">
-
-            </div>
+            {
+               buildMode && <div className="gameobject__container__build-overlay"></div>
+            }
          </div>
       </div>
    )

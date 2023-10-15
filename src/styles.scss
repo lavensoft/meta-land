@@ -6,6 +6,19 @@
    overflow: hidden;
    background: url("/assets/background.png") no-repeat center center / cover;
 
+   & .loading-overlay {
+      width: 100%;
+      height: 100%;
+      position: fixed;
+      background-color: rgba(255, 255, 255, .6);
+      top: 0;
+      left: 0;
+      z-index: 12;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+   }
+
    & .inventory {
       margin-inline: 24px;
       width: 480px;
@@ -19,6 +32,8 @@
       box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
       position: fixed;
       left: 0;
+      position: fixed;
+      z-index: 9;
 
       &__head {
          width: 100%;
@@ -100,16 +115,6 @@
 
    & .land-container {
       // flex: 1;
-   }
-
-   & .gameobject-container {
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      top: 0;
-      left: 0;
-      z-index: 9;
-      pointer-events: none;
    }
 }
 
