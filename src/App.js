@@ -41,7 +41,7 @@ function App() {
    }
 
    const loadMap = async() => {
-      const map = JSON.parse(localStorage.getItem(Config.SK_MAP));
+      const map = JSON.parse(localStorage.getItem(Config.SK_MAP)) || [];
 
       setObjects(map);
    }
