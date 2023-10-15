@@ -12,7 +12,7 @@ export const Inventory = ({ onItemSelect, walletData }) => {
                      name={item.name}
                      image={item.image_uri}
                      qty={1}
-                     onClick={onItemSelect}
+                     onClick={() => onItemSelect(item)}
                   />
                )
             })

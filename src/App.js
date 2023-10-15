@@ -25,7 +25,7 @@ function App() {
    }, []);
 
    const initAsync = async() => {
-      await fetchWallet();
+      // await fetchWallet();
    }
 
    const fetchWallet = async() => {
@@ -81,7 +81,7 @@ function App() {
             <Land/>
          </div>
          <div className="gameobject-container">
-            {/* <GameObject pos={mousePos}/> */}
+            <GameObject pos={mousePos}/>
          </div>
          <ToastContainer/>
       </div>
