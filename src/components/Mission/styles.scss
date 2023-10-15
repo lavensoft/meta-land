@@ -1,0 +1,64 @@
+.mission {
+   &__title {
+
+   }
+
+   &__container {
+
+   }
+}
+
+.mission-card {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   background-color: #F6F3ED;
+   min-height: 48px;
+   padding: 8px 8px 8px 16px;
+   border-radius: 15px;
+   gap: 15px;
+
+   &__info {
+      flex: 1;
+
+      &__title {
+         font-size: 14px;
+         font-weight: 600;
+      }
+
+      &__bar {
+         height: 9px;
+         width: 100%;
+         background-color: #E9E5DD;
+         margin-top: 9px;
+         border-radius: 15px;
+         position: relative;
+
+         &__thumb {
+            height: 100%;
+            background-color: #8080FF;
+            border-radius: 15px;
+            position: absolute;
+            left: 0;
+            top: 0;
+         }
+      }
+   }
+
+   &__action {
+      &__button {
+         color: white;
+         background: #8080FF;
+         border-radius: 9px;
+         padding: 9px 15px;
+         border: none;
+         cursor: pointer;
+         font-weight: 500;
+         transition: all .15s ease;
+
+         &:active {
+            opacity: .6;
+         }
+      }
+   }
+}
