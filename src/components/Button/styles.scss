@@ -1,0 +1,27 @@
+.button {
+   color: white;
+   background: #8080FF;
+   border-radius: 9px;
+   padding: 9px 15px;
+   border: none;
+   cursor: pointer;
+   font-weight: 500;
+   transition: all .15s ease;
+   min-width: 63px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+
+   &:disabled {
+      opacity: .5;
+      cursor: default;
+
+      &:active {
+         opacity: .5;
+      }
+   }
+
+   &:active {
+      opacity: .6;
+   }
+}
