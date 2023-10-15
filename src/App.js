@@ -7,12 +7,13 @@ import { Inventory } from "./components/Inventory";
 import WalletApi from "./api/WalletApi";
 import { Mission } from "./components/Mission";
 import { ToastContainer } from "react-toastify";
+import { Craft } from "./components/Craft";
 
 function App() {
    const [inventoryVisible, setInventoryVisible] = useState(true);
    const [mousePos, setMousPos] = useState([0, 0]);
    const [walletConnected, setWalletConnected] = useState(false);
-   const [tab, setTab] = useState(1);
+   const [tab, setTab] = useState(2);
    const [walletData, setWalletData] = useState({});
 
    //INIT
@@ -59,12 +60,17 @@ function App() {
                      onClick={() => setTab(1)}
                      className={`inventory__children__sidebar__item${tab === 1 ? "--active" : ""}`}
                   >L</button>
+                  <button 
+                     onClick={() => setTab(2)}
+                     className={`inventory__children__sidebar__item${tab === 2 ? "--active" : ""}`}
+                  >C</button>
                </div>
                {
                   walletConnected ?
                   <div className="inventory__children__content">
                      { tab === 0 && <Inventory onItemSelect={() => setInventoryVisible(false)}/> }
                      { tab === 1 && <Mission walletData={walletData}/> }
+                     { tab === 2 && <Craft walletData={walletData}/> }
                   </div> :
                   <div className="inventory__children__content"></div> 
                }
