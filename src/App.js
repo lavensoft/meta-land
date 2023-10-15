@@ -1,4 +1,5 @@
 import { Card } from "./components/Card";
+import { Land } from "./components/Land";
 import "./styles.scss";
 
 function App() {
@@ -22,8 +23,8 @@ function App() {
                </div>
             </div>
          </div>
-         <div className="land">
-
+         <div className="land-container">
+            <Land/>
          </div>
       </div>
    );
