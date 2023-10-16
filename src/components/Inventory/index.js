@@ -6,6 +6,8 @@ export const Inventory = ({ onItemSelect, walletData }) => {
       <div className="inventory-container">
          {
             walletData?.nfts?.map((item, index) => {
+               if(!item.image_uri) return null;
+
                return (
                   <Card
                      key={`in-nft-card-${index}`}
