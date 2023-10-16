@@ -18,6 +18,7 @@ span, h1, h2, h3, a, p, button {
       height: 100%;
       position: fixed;
       background-color: rgba(255, 255, 255, .6);
+      backdrop-filter: blur(9px) saturate(180%);
       top: 0;
       left: 0;
       z-index: 12;
