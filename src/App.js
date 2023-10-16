@@ -10,6 +10,9 @@ import { ToastContainer } from "react-toastify";
 import { Craft } from "./components/Craft";
 import Config from "./config/Config";
 import { Oval } from "react-loader-spinner";
+import { BsFillBoxFill } from "react-icons/bs";
+import { RiFlagFill } from "react-icons/ri";
+import { BiSolidBookBookmark } from "react-icons/bi"
 
 function App() {
    const [inventoryVisible, setInventoryVisible] = useState(true);
@@ -104,15 +107,21 @@ function App() {
                   <button 
                      onClick={() => setTab(0)}
                      className={`inventory__children__sidebar__item${tab === 0 ? "--active" : ""}`}
-                  >O</button>
+                  >
+                     <BsFillBoxFill className="inventory__children__sidebar__item__icon"/>
+                  </button>
                   <button 
                      onClick={() => setTab(1)}
                      className={`inventory__children__sidebar__item${tab === 1 ? "--active" : ""}`}
-                  >L</button>
+                  >
+                     <RiFlagFill className="inventory__children__sidebar__item__icon"/>
+                  </button>
                   <button 
                      onClick={() => setTab(2)}
                      className={`inventory__children__sidebar__item${tab === 2 ? "--active" : ""}`}
-                  >C</button>
+                  >
+                     <BiSolidBookBookmark className="inventory__children__sidebar__item__icon"/>
+                  </button>
                </div>
                {
                   walletConnected ?
