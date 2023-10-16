@@ -65,8 +65,6 @@ export const Mission = ({ walletData={}, onRefreshWallet, walletFetching }) => {
          }
       });
 
-      console.log(missions);
-
       setMissions(missions);
    }
 
@@ -76,7 +74,17 @@ export const Mission = ({ walletData={}, onRefreshWallet, walletFetching }) => {
       await fetchMission();
       await onRefreshWallet();
 
-      toast("🚀 Your reward has been transferred to your wallet!");
+      toast(
+         <div style={{
+            display: "flex",
+            gap: 12,
+            alignItems: "center",
+            justifyContent: "center"
+         }}>
+            <img src={reward.image} alt="item_image" height={48}/>
+            <span>Your reward has been transferred to your wallet!</span>
+         </div>
+      );
       setLoading(false);
    }
 

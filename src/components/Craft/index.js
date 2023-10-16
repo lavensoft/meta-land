@@ -4,8 +4,9 @@ import "./styles.scss";
 import CraftApi from "../../api/CraftApi";
 import Config from "../../config/Config";
 import NFTApi from "../../api/NFTApi";
+import { toast } from "react-toastify";
 
-export const Craft = ({ walletData }) => {
+export const Craft = ({ walletData, onRefreshWallet }) => {
    const [objects, setObjects] = useState([]);
    const [crafting, setCrafting] = useState(false);
    const [mat, setMat] = useState({
@@ -57,6 +58,20 @@ export const Craft = ({ walletData }) => {
          nftName: item.name,
          mat: item.mat
       });
+
+      await onRefreshWallet();
+
+      toast(
+         <div style={{
+            display: "flex",
+            gap: 12,
+            alignItems: "center",
+            justifyContent: "center"
+         }}>
+            <img src={item.image} alt="item_image" height={48}/>
+            <span>Your craft item has been transferred to your wallet!</span>
+         </div>
+      );
       setCrafting(false);
    }
 
