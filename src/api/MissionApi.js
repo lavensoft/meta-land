@@ -13,7 +13,7 @@ export default class MissionApi {
                tokenAddress: Config.TOKEN_STONE,
                image: window.location.origin + "/assets/stone.png",
                name: "Stone",
-               amount: 1
+               amount: 999
             }, 
             title: "Executed 10 transactions on SOL",
             type: "SOL_TRANSFER_AMOUNT",
@@ -26,7 +26,7 @@ export default class MissionApi {
                tokenAddress: Config.TOKEN_GOLD,
                image: window.location.origin + "/assets/gold.png",
                name: "Gold",
-               amount: 1
+               amount: 999
             }, 
             title: "Transfer 5 SOL transactions",
             type: "SOL_TRANSFER_COUNT",
@@ -39,7 +39,7 @@ export default class MissionApi {
                tokenAddress: Config.TOKEN_DIAMOND,
                image: window.location.origin + "/assets/diamond.png",
                name: "Diamond",
-               amount: 1
+               amount: 999
             }, 
             title: "Hold 6 SOL",
             type: "HOLD_SOL",

@@ -6,12 +6,11 @@ import { Button } from "../Button";
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
-export const Mission = ({ walletData }) => {
+export const Mission = ({ walletData={}, onRefreshWallet, walletFetching }) => {
    const [missions, setMissions] = useState([]);
-   const [claming, setClaming] = useState(false);
+   const [loading, setLoading] = useState(false);
 
    useEffect(() => {
-      console.log(walletData);
       fetchMission();
    }, []);
 
@@ -26,7 +25,7 @@ export const Mission = ({ walletData }) => {
          switch(item.type) {
             case "SOL_TRANSFER_COUNT" : {
                const transactionCount = walletData.transactionHistory
-                  .filter(
+                  ?.filter(
                      (item) => item.type === "SOL_TRANSFER"
                   ).length;
                
@@ -35,13 +34,13 @@ export const Mission = ({ walletData }) => {
             }
             case "SOL_TRANSFER_AMOUNT" : {
                const transactionAmount = walletData.transactionHistory
-                  .filter(
+                  ?.filter(
                      (item) => item.type === "SOL_TRANSFER"
-                  ).reduce(
+                  )?.reduce(
                      (a, i) => a + 
                         i.actions
-                           .filter((i) => i.info?.sender === localStorage.getItem(Config.SK_PUBLIC_KEY))
-                           .reduce(
+                           ?.filter((i) => i.info?.sender === localStorage.getItem(Config.SK_PUBLIC_KEY))
+                           ?.reduce(
                            (a, i) => a + i.info?.amount || 0
                         , 0)
                   , 0);
@@ -72,17 +71,32 @@ export const Mission = ({ walletData }) => {
    }
 
    const claimReward = async (reward) => {
-      setClaming(true);
+      setLoading(true);
       await MissionApi.claimReward(reward);
       await fetchMission();
+      await onRefreshWallet();
 
       toast("🚀 Your reward has been transferred to your wallet!");
-      setClaming(false);
+      setLoading(false);
+   }
+
+   const checkEligibility = async () => {
+      setLoading(true);
+      await onRefreshWallet();
+      await fetchMission();
+      setLoading(false);
    }
 
    return (
       <div className="mission">
-         <h3 className="mission__title">Daily Quest</h3>
+         <div style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center"
+         }}>
+            <h3 className="mission__title" style={{ flex: 1 }}>Daily Quest</h3>
+            <Button onClick={checkEligibility} loading={loading}>Check Eligibility</Button>
+         </div>
          {/* <button>RE CHECK</button> */}
          <div className="mission__container">
             {
@@ -102,7 +116,7 @@ export const Mission = ({ walletData }) => {
                      rewardImage={item.reward.image}
                      rewardName={item.reward.name}
                      rewardAmount={item.reward.amount}
-                     loading={claming}
+                     loading={loading}
                   />
                })
             }

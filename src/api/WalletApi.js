@@ -35,7 +35,7 @@ export default class WalletApi {
    static async getTransactionHistory() {
       const walletAddress = localStorage.getItem(Config.SK_PUBLIC_KEY);
       let res = await axios.get(
-         `${Config.SHYFT}/wallet/transaction_history?network=${Config.NETWORK}&wallet=${walletAddress}`, 
+         `${Config.SHYFT}/wallet/transaction_history?network=${Config.NETWORK}&wallet=${walletAddress}&tx_num=50`, 
          {
             headers: {
                "x-api-key": Config.SHYFT_API_TOKEN

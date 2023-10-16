@@ -18,6 +18,7 @@ function App() {
    const [walletData, setWalletData] = useState({});
    const [objects, setObjects] = useState([]);
    const [loading, setLoading] = useState(true);
+   const [walletFetching, setWalletFetching] = useState(false);
 
    //INIT
    useEffect(() => {
@@ -31,13 +32,18 @@ function App() {
    }
 
    const fetchWallet = async() => {
+      setWalletFetching(true);
+
       //Connect wallet
       await WalletApi.connect();
       setWalletConnected(true);
 
       //Get wallet
       const walletData = await WalletApi.getWallet();
+      console.log(walletData);
       setWalletData(walletData);
+
+      setWalletFetching(false);
    }
 
    const loadMap = async() => {
@@ -111,14 +117,25 @@ function App() {
                {
                   walletConnected ?
                   <div className="inventory__children__content">
-                     { tab === 0 && <Inventory walletData={walletData} onItemSelect={
-                        (item) => {
-                           setInventoryVisible(false);
-                           buildObject(item);
-                        }}/> 
+                     { tab === 0 && <Inventory 
+                        walletFetching={walletFetching}
+                        walletData={walletData} 
+                        onRefreshWallet={fetchWallet}
+                        onItemSelect={
+                           (item) => {
+                              setInventoryVisible(false);
+                              buildObject(item);
+                           }}
+                        /> 
                      }
-                     { tab === 1 && <Mission walletData={walletData}/> }
-                     { tab === 2 && <Craft walletData={walletData}/> }
+                     { tab === 1 && <Mission 
+                        walletData={walletData}
+                        onRefreshWallet={fetchWallet}
+                     /> }
+                     { tab === 2 && <Craft 
+                        walletData={walletData}
+                        onRefreshWallet={fetchWallet}
+                     /> }
                   </div> :
                   <div className="inventory__children__content"></div> 
                }
