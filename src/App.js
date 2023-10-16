@@ -94,6 +94,7 @@ function App() {
                   strokeWidth={5}
                   strokeWidthSecondary={5}
                />
+               <h3>Connecting to your Phantom wallet...</h3>
             </div>
          }
          <div className="inventory" style={{

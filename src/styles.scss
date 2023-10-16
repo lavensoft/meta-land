@@ -25,6 +25,8 @@ span, h1, h2, h3, a, p, button {
       display: flex;
       align-items: center;
       justify-content: center;
+      flex-direction: column;
+      gap: 15px;
    }
 
    & .inventory {
